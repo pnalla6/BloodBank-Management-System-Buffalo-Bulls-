@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+nav>div>.hospital_search {
+    margin-right: 0.5rem;
+    width: max-content;
+}
+nav>div>.patient_search {
+    margin-right: auto;
+    /* margin-left: -40rem; */
+}
+
+/* .hospital {} */
+
+.queryResponseTable {
+    width: 95vw;
+    margin: auto;
+}
+
+.goback{
+    display: block;
+    margin: auto;
+    text-align: center;
+}

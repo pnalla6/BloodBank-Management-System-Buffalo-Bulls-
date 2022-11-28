@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.newPatientForm {
+    width: 60vw;
+    margin: auto;
+}
+
+.newPatientForm>form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* margin: 1rem 10rem 1rem 10rem; */
+}

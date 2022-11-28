@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='hospitalStyle.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body onload="hideGoBack()">
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand">BloodBank</a>
+            <a href="{{ url_for('hospital_search') }}" class="hospital_search">Goto Hospital</a>
+            <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a>
+            <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
+                <input name="user_query" id="user_query" class="form-control me-2" type="search"
+                    placeholder="Enter Query" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Execute</button>
+            </form>
+        </div>
+    </nav>
+    <form action="{{ url_for('get_patient_hospitals') }}" method="POST">
+        {{value}}
+        <div class="hospital card-body">
+            <label for="patient_name">Select a Patient</label>
+            <select name="patient_name" id="patient_name" required>
+                <option value="none" selected disabled hidden>Select a Patient</option>
+                {% for v in value %}
+                <option value="{{v[0]}}">{{v[1]}}</option>
+                {% endfor %}
+            </select>
+            <a href="{{ url_for('insert_new_patient') }}">insert new patient</a>
+        </div><br>
+        <!-- <div class="bb_distance">
+            <label name="bb_distance" for="bb_distance">Enter a distance:</label>
+            <input name="bb_distance" type="number" required>
+        </div> -->
+        <div class="submit">
+            <input type="submit">
+        </div>
+    </form>
+
+    <div class="queryResponseTable">
+        <table class="table table-striped table-hover table-bordered border-warning">
+            <thead>
+                <tr>
+                    {% for v in value['table_cols'] %}
+                    <th scope="col">{{v[0]}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for v in value['table_rows'] %}
+                <tr>
+                    {% for val in v %}
+                    <td class="table-warning" scope="row"><a value="{{val}}">{{val}}</a></td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="goback">
+        <button id="gobackbtn" onclick="(()=>{window.history.go(-1)})()" class="btn btn-dark" type="button">Go
+            back</button>
+    </div>
+    <script>
+        function hideGoBack() {
+            var goBackBtn = document.getElementById('gobackbtn');
+            // console.log(goBackBtn.style.display = "none");
+            if (window.location.pathname === '/patient_search') {
+                goBackBtn.style.display = "none"
+            }
+        }
+    </script>
+</body>
+
+</html>
