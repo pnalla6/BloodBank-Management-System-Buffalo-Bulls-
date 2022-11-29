@@ -21,6 +21,30 @@ def main():
     dataObj["table_rows"] = data
     return render_template("index.html", value=dataObj)
 
+# return hospital view
+@app.route("/hospital")
+def hospital():
+    dataObj = {}
+    cur.execute("SELECT * FROM hospital LIMIT 100")
+    # print(cur.description)
+    data = cur.fetchall()
+    data1 = cur.description
+    dataObj["table_cols"] = data1
+    dataObj["table_rows"] = data
+    return render_template("hospitalView.html", value=dataObj)
+
+# return patient view
+@app.route("/hospital")
+def hospital():
+    dataObj = {}
+    cur.execute("SELECT * FROM hospital LIMIT 100")
+    # print(cur.description)
+    data = cur.fetchall()
+    data1 = cur.description
+    dataObj["table_cols"] = data1
+    dataObj["table_rows"] = data
+    return render_template("hospitalView.html", value=dataObj)
+
 
 @app.route("/submitForm", methods=["POST"])
 def handle_query():
