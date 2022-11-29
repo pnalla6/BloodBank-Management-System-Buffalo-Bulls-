@@ -26,54 +26,64 @@
     </nav>
 
     <div class="newPatientForm">
-        <form action="{{ url_for('get_new_patient_form') }}" method="POST">
+        <form action="{{ url_for('delete_blood_bank') }}" method="POST">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="name">BloodBank Name</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="BloodBank Name" required>
+                    <input value="{{value['details'][0][0]}}" type="text" name="bbid" hidden>
+                    <input value="{{value['details'][0][1]}}" type="text" class="form-control" name="name" id="name"
+                        placeholder="BloodBank Name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="apos">Number of A-POS units:</label>
-                    <input type="text" class="form-control" name="apos" id="apos" placeholder="APOS" required>
+                    <input value="{{value['details'][0][2]}}" type="text" class="form-control" name="apos" id="apos"
+                        placeholder="APOS" required>
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <label for="aneg">NUmber of A-NEG units:</label>
-                <input type="number" class="form-control" name="aneg" id="aneg" placeholder="Enter number of units"
-                    required>
+                <input value="{{value['details'][0][3]}}" type="number" class="form-control" name="aneg" id="aneg"
+                    placeholder="Enter number of units" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="bpos">NUmber of B-POS units:</label><br>
-                <input type="number" class="form-control" name="bpos" id="bpos" placeholder="Enter number of units"
-                    required>
+                <input value="{{value['details'][0][4]}}" type="number" class="form-control" name="bpos" id="bpos"
+                    placeholder="Enter number of units" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="bneg">Number of B-NEG units:</label>
-                <input type="tel" class="form-control" name="bneg" id="bneg" placeholder="Enter units" required>
+                <input value="{{value['details'][0][5]}}" type="tel" class="form-control" name="bneg" id="bneg"
+                    placeholder="Enter units" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="opos">Number of O-POS units:</label>
-                <input type="tel" class="form-control" name="opos" id="opos" placeholder="Enter unit" required>
+                <input value="{{value['details'][0][6]}}" type="tel" class="form-control" name="opos" id="opos"
+                    placeholder="Enter unit" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="oneg">Number of O-NEG units:</label>
-                <input type="text" class="form-control" name="oneg" id="oneg" placeholder="Enter unit" required>
+                <input value="{{value['details'][0][7]}}" type="text" class="form-control" name="oneg" id="oneg"
+                    placeholder="Enter unit" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="abpos">Number of AB-POS units:</label>
-                <input type="text" class="form-control" name="abpos" id="abpos" placeholder="Entire units" required>
+                <input value="{{value['details'][0][8]}}" type="text" class="form-control" name="abpos" id="abpos"
+                    placeholder="Entire units" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="abneg">Number of AB-NEG units:</label>
-                <input type="text" class="form-control" name="abneg" id="abneg" placeholder="Entire units" required>
+                <input value="{{value['details'][0][9]}}" type="text" class="form-control" name="abneg" id="abneg"
+                    placeholder="Entire units" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="phone">Phone</label>
-                <input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone" required>
+                <input value="{{value['details'][0][10]}}" type="tel" class="form-control" name="phone" id="phone"
+                    placeholder="Phone" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="mail">E-Mail</label>
-                <input type="email" class="form-control" name="mail" id="mail" placeholder="E-mail" required>
+                <input value="{{value['details'][0][11]}}" type="email" class="form-control" name="mail" id="mail"
+                    placeholder="E-mail" required>
             </div>
 
             <button style="width: 5rem;margin-right: auto;" type="submit" class="btn btn-primary">Submit</button>
