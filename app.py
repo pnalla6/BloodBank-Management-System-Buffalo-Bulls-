@@ -34,16 +34,40 @@ def hospital():
     return render_template("hospitalView.html", value=dataObj)
 
 # return patient view
-@app.route("/hospital")
-def hospital():
+@app.route("/patient")
+def patient():
     dataObj = {}
-    cur.execute("SELECT * FROM hospital LIMIT 100")
+    cur.execute("SELECT * FROM patient LIMIT 100")
     # print(cur.description)
     data = cur.fetchall()
     data1 = cur.description
     dataObj["table_cols"] = data1
     dataObj["table_rows"] = data
-    return render_template("hospitalView.html", value=dataObj)
+    return render_template("patientView.html", value=dataObj)
+
+# return donor view
+@app.route("/donor")
+def donor():
+    dataObj = {}
+    cur.execute("SELECT * FROM donor LIMIT 100")
+    # print(cur.description)
+    data = cur.fetchall()
+    data1 = cur.description
+    dataObj["table_cols"] = data1
+    dataObj["table_rows"] = data
+    return render_template("donorView.html", value=dataObj)
+
+# return bloodbank view
+@app.route("/bloodbank")
+def bloodbank():
+    dataObj = {}
+    cur.execute("SELECT * FROM blood_bank LIMIT 100")
+    # print(cur.description)
+    data = cur.fetchall()
+    data1 = cur.description
+    dataObj["table_cols"] = data1
+    dataObj["table_rows"] = data
+    return render_template("bloodbankView.html", value=dataObj)
 
 
 @app.route("/submitForm", methods=["POST"])
@@ -147,8 +171,8 @@ def patient_search():
 
 
 # handle bloodbank details
-@app.route("/bloodbank/<bbid>", methods=["POST", "GET"])
-def bloodbank(bbid):
+@app.route("/bloodbankdetails/<bbid>", methods=["POST", "GET"])
+def bloodbankdetails(bbid):
     bloodBankObj = {}
     # print('RA---',request.args.to_dict())
     # print("bbid--", bbid)
