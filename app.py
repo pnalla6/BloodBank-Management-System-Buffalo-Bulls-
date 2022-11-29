@@ -83,6 +83,20 @@ def handle_query():
     queryResponseObj["table_rows"] = query_response
     return render_template("index.html", value=queryResponseObj)
 
+# return new patient form 
+@app.route("/new_patient", methods=["POST"])
+def new_patient():
+    # queryResponseObj = {}
+    # request_data = request.form
+    # user_query = request_data.to_dict()
+    # # print(user_query["user_query"] + ' LIMIT 300')
+    # cur.execute(user_query["user_query"] + " LIMIT 300")
+    # columsNames = cur.description
+    # query_response = cur.fetchall()
+    # queryResponseObj["table_cols"] = columsNames
+    # queryResponseObj["table_rows"] = query_response
+    return render_template("newBloodBank.html")
+
 
 # get nearest bloodbank to a hospital
 @app.route("/get_nearest_bb", methods=["POST"])
