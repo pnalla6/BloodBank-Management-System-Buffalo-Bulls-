@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 nav {
@@ -65,7 +66,7 @@ nav>div>.patient_search {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #88498f;
+    background: #0058b5;
     border-radius: 20px;
 }
 
@@ -76,4 +77,9 @@ nav>div>.patient_search {
 
 .menuGrid>.row>div>div>div>h5>a {
     color: #f3eff5;
+    text-decoration: none;
+}
+
+.menuGrid>.row>div>div {
+    border:none;
 }
