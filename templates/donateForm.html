@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Side Navigation Bar</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>BLOOD BANK</h2>
+        <ul>
+            <li><a href="{{ url_for('base') }}"><i class="fas fa-home"></i>DashBoard</a></li>
+            <li><a href="#"><i class="fas fa-user"></i> Donor </a></li>
+            <li><a href="#"><i class="fas fa-user"></i> Blood Bank </a></li>
+            <li><a href="{{ url_for('hospital_search') }}"><i class="fas fa-user"></i> Hospital </a></li>
+            <li><a href="{{ url_for('patient_search')}}"><i class="fas fa-heartbeat"></i> Patient </a></li>
+            <li><a href="{{ url_for('donate')}}"><i class="fas fa-heartbeat"></i>Donate</a></li>
+        </ul>
+        <div class="social_media">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">Welcome!! Have a nice day.</div>
+        <div class="info">
+            <form action="{{ url_for('donate') }}", method="post">
+                <input name="did" id="did" class="form-control me-2" type="text"
+                    placeholder="Donor ID">
+                <input name="bbid" id="bbid" class="form-control me-2" type="text"
+                    placeholder="Blood Bank ID">
+                <button class="btn btn-outline-success" type="submit">Donate</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

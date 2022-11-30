@@ -1,16 +1,50 @@
 from flask import Flask, render_template, request, abort
 import psycopg2
+from datetime import date
+
+today = date.today()
 
 app = Flask(__name__)
 
 conn = psycopg2.connect(
-    host="localhost", database="CentralizedBloodBank", user="postgres", password="pksc"
+    host="localhost", database="CentralizedBloodBank", user="postgres", password="password"
 )
 conn.autocommit = True
 cur = conn.cursor()
 
 
+
 @app.route("/")
+def base():
+    cur.execute("SELECT sum(apos), sum(aneg), sum(bpos), sum(bneg), sum(abpos), sum(abneg), sum(opos), sum(oneg)  FROM blood_bank;")
+    blood_units = cur.fetchall()
+    return render_template("base.html", value = blood_units)
+
+
+@app.route("/donate", methods = ["POST", "GET"])
+def donate():
+    if request.method == "POST":
+        requested_data = request.form.to_dict()
+        did = requested_data["did"]
+        bbid = requested_data["bbid"]
+        # update user last_given
+        # fetch donor blood group
+        # update bbid corresponding blood group of ID
+        cur.execute("update donor set last_given =%s where did=%s", (today.strftime("%m/%d/%y"), str(did)))
+        cur.execute("select blood_type from donor where did="+str(did)+";")
+        bloodbankMap = {"A+":"apos", "A-":"aneg", "B+":"bpos", "B-":"bneg", "AB+":"abpos", "AB-":"abneg", "O+":"opos", "O-":"oneg"}
+        value = cur.fetchall()
+        cur.execute("select "+bloodbankMap[value[0][0]]+" from blood_bank where bbid="+str(bbid)+";")
+        blood_type_units = cur.fetchall()[0][0]
+        cur.execute("update blood_bank set "+str(bloodbankMap[value[0][0]])+"="+str(blood_type_units+1)+" where bbid="+str(bbid)+";")
+        value = {}
+        return render_template("donateForm.html", value = value)
+    else:
+        value = {}
+        return render_template("donateForm.html", value= value)
+
+
+@app.route("/address")
 def main():
     dataObj = {}
     cur.execute("SELECT * FROM address LIMIT 100")
