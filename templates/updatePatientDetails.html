@@ -11,7 +11,7 @@
     <title>New Patient</title>
 </head>
 
-<body>
+<body onload="setBloodGroup()">
     <nav class="navbar bg-light">
         <div class="container-fluid">
             <a href="/" class="navbar-brand">BloodBank</a>
@@ -31,22 +31,24 @@
                 <div class="form-group col-md-6">
                     <label for="first_name">First Name</label>
                     <input value="{{value['details'][0][0]}}" type="text" name="pid" hidden>
-                    <input value="{{value['details'][0][1]}}" type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name"
-                        required>
+                    <input value="{{value['details'][0][1]}}" type="text" class="form-control" name="first_name"
+                        id="first_name" placeholder="First Name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="last_name">Last Name</label>
-                    <input value="{{value['details'][0][2]}}" type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name"
-                        required>
+                    <input value="{{value['details'][0][2]}}" type="text" class="form-control" name="last_name"
+                        id="last_name" placeholder="Last Name" required>
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <label for="age">Age</label>
-                <input value="{{value['details'][0][3]}}" type="number" class="form-control" name="age" id="age" placeholder="Age" required>
+                <input value="{{value['details'][0][3]}}" type="number" class="form-control" name="age" id="age"
+                    placeholder="Age" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="blood_group">Blood group</label><br>
-                <select value="{{value['details'][0][4]}}" class="form-select" name="blood_group" id="blood_group" required>
+                <select value="{{value['details'][0][4]}}" class="form-select" name="blood_group" id="blood_group"
+                    required>
                     <option value="none" selected disabled hidden>Select a Blood Group</option>
                     <option value="A+">A-POSITIVE</option>
                     <option value="A-">A-NEGATIVE</option>
@@ -60,34 +62,49 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="phone">Phone</label>
-                <input value="{{value['details'][0][5]}}" type="tel" class="form-control" name="phone" id="phone" placeholder="Phone Number" required>
+                <input value="{{value['details'][0][5]}}" type="tel" class="form-control" name="phone" id="phone"
+                    placeholder="Phone Number" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="building_no">Building No.</label>
-                <input value="{{value['addr'][0][1]}}" type="tel" class="form-control" name="building_no" id="building_no" placeholder="Building No."
-                    required>
+                <input value="{{value['addr'][0][1]}}" type="tel" class="form-control" name="building_no"
+                    id="building_no" placeholder="Building No." required>
             </div>
             <div class="form-group col-md-6">
                 <label for="street_name">Street Name</label>
-                <input value="{{value['addr'][0][2]}}" type="text" class="form-control" name="street_name" id="street_name" placeholder="Street Name"
-                    required>
+                <input value="{{value['addr'][0][2]}}" type="text" class="form-control" name="street_name"
+                    id="street_name" placeholder="Street Name" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="city">City</label>
-                <input value="{{value['addr'][0][3]}}" type="text" class="form-control" name="city" id="city" placeholder="City" required>
+                <input value="{{value['addr'][0][3]}}" type="text" class="form-control" name="city" id="city"
+                    placeholder="City" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="state_id">State</label>
-                <input value="{{value['addr'][0][5]}}" type="text" class="form-control" name="state_id" id="state_id" placeholder="State" required>
+                <input value="{{value['addr'][0][5]}}" type="text" class="form-control" name="state_id" id="state_id"
+                    placeholder="State" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="zipcode">Zipcode</label>
-                <input value="{{value['addr'][0][4]}}" type="tel" class="form-control" name="zipcode" id="zipcode" placeholder="Zipcode" required>
+                <input value="{{value['addr'][0][4]}}" type="tel" class="form-control" name="zipcode" id="zipcode"
+                    placeholder="Zipcode" required>
             </div>
 
             <button style="width: 5rem;margin-right: auto;" type="submit" class="btn btn-primary">Submit</button>
         </form>
+
     </div>
+    <script>
+        function setBloodGroup() {
+            var get_selectTag = document.getElementById("blood_group");
+            console.log(get_selectTag.getAttribute('value'));
+            for (i = 0; i < get_selectTag.children.length; i++)
+                if (get_selectTag.children[i].getAttribute('value') === get_selectTag.getAttribute('value')) {
+                    console.log(get_selectTag.children[i].setAttribute('selected', 'selected'));
+                }
+        }
+    </script>
 </body>
 
 </html>

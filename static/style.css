@@ -56,14 +56,24 @@ nav>div>.patient_search {
     align-items: center;
 }
 
+#main_card {
+    border-radius: 20px;
+}
+
 .card-body {
     height: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #88498f;
+    border-radius: 20px;
 }
 
 .menuGrid>.row>div>div>div>h5 {
     text-align: center;
     font-weight: bold;
+}
+
+.menuGrid>.row>div>div>div>h5>a {
+    color: #f3eff5;
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='newPatientStyle.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>New Patient</title>
+</head>
+
+<body>
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand">BloodBank</a>
+            <!-- <a href="{{ url_for('hospital_search') }}" class="hospital_search">Goto Hospital</a> -->
+            <!-- <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a> -->
+            <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
+                <input name="user_query" id="user_query" class="form-control me-2" type="search"
+                    placeholder="Enter Query" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Execute</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="newPatientForm">
+        <form style="display: flex;flex-direction: column;justify-content: center;align-items: center; margin: auto;" action="{{ url_for('donate_blood') }}" method="POST">
+            <div class="hospital card-body">
+                <label for="did">Select a Donor</label>
+                <select name="did" id="pid" required>
+                    <option value="none" selected disabled hidden>Select a Donor</option>
+                    {% for v in value['table_rows'] %}
+                    <option value="{{v[0]}}">{{v[0]}} | {{v[1]}}</option>
+                    {% endfor %}
+                </select>
+            </div><br>
+            <!-- <div class="bb_distance">
+                <label name="bb_distance" for="bb_distance">Enter a distance:</label>
+                <input name="bb_distance" type="number" required>
+            </div> -->
+            <div class="hospital card-body">
+                <label for="did">Select a BloodBank</label>
+                <select name="bbid" id="bbid" required>
+                    <option value="none" selected disabled hidden>Select a BloodBank</option>
+                    {% for v in value['htable_rows'] %}
+                    <option value="{{v[0]}}">{{v[0]}} | {{v[1]}}</option>
+                    {% endfor %}
+                </select>
+            </div><br>
+            <div class="units">
+                <label for="units">Enter Number of Units:</label>
+                <input type="number" name="units" id="units" required>
+            </div>
+            <div style="margin-top: 1rem;" class="submit">
+                <input value="Donate" type="submit">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
