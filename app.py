@@ -343,8 +343,8 @@ def delete_blood_bank():
     oneg = bloodBankData["oneg"]
     abpos = bloodBankData["abpos"]
     abneg = bloodBankData["abneg"]
-    phone= bloodBankData["phone"]
-    mail= bloodBankData["mail"]
+    phone = bloodBankData["phone"]
+    mail = bloodBankData["mail"]
     print(bloodBankData)
     delete_from_bloodbank_query = "delete from blood_bank where bbid={}".format(bbid)
     cur.execute(delete_from_bloodbank_query)
@@ -354,6 +354,43 @@ def delete_blood_bank():
     # bloodbankOBJ["table_cols"] = columsNames
     # bloodbankOBJ["table_rows"] = cur.fetchall()
     return "<h2>bbid={} delete sucess.</h2>".format(bbid)
+
+
+# join new patient form
+@app.route("/join_new_patient")
+def join_new_patient():
+    patientIDsOBJ = {}
+    # print('RA---',request.args.to_dict())
+    # print("bbid--", bbid)
+    query = "select pid,first_name from patient ORDER BY pid LIMIT 100"
+    cur.execute(query)
+    columsNames = cur.description
+    patientIDsOBJ["table_cols"] = columsNames
+    patientIDsOBJ["table_rows"] = cur.fetchall()
+    hospital_query = "select hid,name from hospital ORDER BY hid LIMIT 100"
+    cur.execute(hospital_query)
+    patientIDsOBJ['htable_rows'] = cur.fetchall()
+    return render_template("joinNewPatient.html", value=patientIDsOBJ)
+
+# get patient-hospital form
+@app.route("/get_patient_hospital_form", methods=["POST"])
+def get_patient_hospital_form():
+    pid = request.form.to_dict()['pid']
+    hid = request.form.to_dict()['hid']
+    get_bb_from_hid = "select bbid from hospital_blood_bank where hid={}".format(hid)
+    cur.execute(get_bb_from_hid)
+    bbid = cur.fetchall()[0][0] 
+   
+    # insert_into_pbb = "INSERT into patient_hospital_blood_bank (pid, hid, bbid) VALUES({},{},{})".format(pid,hid,bbid)
+    # cur.execute(insert_into_pbb)
+    newData ={}
+    get_new_record = "select * from patient_hospital_blood_bank where pid={} and bbid={}".format(pid,bbid)
+    cur.execute(get_new_record)
+    columsNames = cur.description
+    newData["table_cols"] = columsNames
+    newData["table_rows"] = cur.fetchall()
+    print(newData)
+    return render_template('recordView.html',value=newData)
 
 
 ### functions ###
