@@ -25,7 +25,6 @@
         </div>
     </nav>
     <form action="{{ url_for('get_patient_hospitals') }}" method="POST">
-        {{value}}
         <div class="hospital card-body">
             <label for="patient_name">Select a Patient</label>
             <select name="patient_name" id="patient_name" required>
@@ -34,14 +33,13 @@
                 <option value="{{v[0]}}">{{v[1]}}</option>
                 {% endfor %}
             </select>
-            <a href="{{ url_for('insert_new_patient') }}">insert new patient</a>
         </div><br>
         <!-- <div class="bb_distance">
             <label name="bb_distance" for="bb_distance">Enter a distance:</label>
             <input name="bb_distance" type="number" required>
         </div> -->
         <div class="submit">
-            <input type="submit">
+            <input name="check" value="view hospitals" type="submit">
         </div>
     </form>
 

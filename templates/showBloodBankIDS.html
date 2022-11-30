@@ -24,22 +24,22 @@
             </form>
         </div>
     </nav>
-    <form action="{{ url_for('get_nearest_bb') }}" method="POST">
+    <form action="{{ url_for('show_bloodbank_details_form') }}" method="POST">
         <div class="hospital card-body">
-            <label for="hospital_name">Select a Hospital</label>
-            <select name="hospital_name" id="hospital_name" required>
-                <option value="none" selected disabled hidden>Select a Hospital</option>
-                {% for v in value %}
-                <option value="{{v[0]}}">{{v[1]}}</option>
+            <label for="bbid">Select a BloodBank</label>
+            <select name="bbid" id="bbid" required>
+                <option value="none" selected disabled hidden>Select a BloodBank</option>
+                {% for v in value['table_rows'] %}
+                <option value="{{v[0]}}">{{v[0]}} | {{v[1]}}</option>
                 {% endfor %}
             </select>
         </div><br>
-        <div class="bb_distance">
+        <!-- <div class="bb_distance">
             <label name="bb_distance" for="bb_distance">Enter a distance:</label>
-            <input name="bb_distance" type="number" required><span> miles</span>
-        </div>
+            <input name="bb_distance" type="number" required>
+        </div> -->
         <div class="submit">
-            <input type="submit">
+            <input value="Edit patient" type="submit">
         </div>
     </form>
 
@@ -57,8 +57,7 @@
                 {% for v in value['table_rows'] %}
                 <tr>
                     {% for val in v %}
-                    <td class="table-warning" scope="row"><a href="{{ url_for('bloodbankdetails', bbid=val) }}"
-                            value="{{val}}">{{val}}</a></td>
+                    <td class="table-warning" scope="row"><a value="{{val}}">{{val}}</a></td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
@@ -73,7 +72,7 @@
         function hideGoBack() {
             var goBackBtn = document.getElementById('gobackbtn');
             // console.log(goBackBtn.style.display = "none");
-            if (window.location.pathname === '/hospital_search') {
+            if (window.location.pathname === '/patient_search') {
                 goBackBtn.style.display = "none"
             }
         }

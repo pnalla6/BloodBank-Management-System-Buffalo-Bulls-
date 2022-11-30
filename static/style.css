@@ -12,6 +12,7 @@ nav>div>.hospital_search {
     margin-right: 0.5rem;
     width: max-content;
 }
+
 nav>div>.patient_search {
     margin-right: auto;
     /* margin-left: -40rem; */
@@ -39,4 +40,30 @@ nav>div>.patient_search {
 .queryResponseTable {
     width: 95vw;
     margin: auto;
+}
+
+.menuGrid {
+    display: grid;
+    row-gap: 5rem;
+    margin-top: 4rem;
+    align-items: center;
+}
+
+.menuGrid>.row {
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+}
+
+.card-body {
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuGrid>.row>div>div>div>h5 {
+    text-align: center;
+    font-weight: bold;
 }
