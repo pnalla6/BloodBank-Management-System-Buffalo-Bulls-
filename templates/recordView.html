@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='hospitalStyle.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
-<body>
+<body onload="hideGoBack()">
     <nav class="navbar bg-light">
         <div class="container-fluid">
             <a href="/" class="navbar-brand">BloodBank</a>
             <a href="{{ url_for('hospital_search') }}" class="hospital_search">Goto Hospital</a>
-            <!-- <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a> -->
+            <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a>
             <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
                 <input name="user_query" id="user_query" class="form-control me-2" type="search"
                     placeholder="Enter Query" aria-label="Search">
@@ -24,25 +24,7 @@
             </form>
         </div>
     </nav>
-    <!-- <div class="userQueryForm">
-        <h3>Enter Query:</h3>
-        <form action="{{ url_for('handle_query') }}" method="POST">
-            <textarea name="user_query" id="user_query" cols="60" rows="3"></textarea><br>
-            <button class="btn btn-warning" type="submit">Query</button>
-        </form>
-    </div> -->
-    <div style="display: flex;flex-direction: row;justify-content: center;" class="topMenu">
-        <h3 style="width: fit-content;text-align: center;margin-right: 0.4rem;">Patient Table</h3>
-        <span><a style="vertical-align: sub;" href="{{ url_for('patient_search') }}" class="patient_search">see
-                Patient hospitals</a></span>
-        <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('insert_new_patient') }}"> insert new
-                patient</a></span>
-        <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('show_patient_ids_update') }}">
-                update
-                patient</a></span>
-        <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('join_new_patient') }}"> join
-                patient</a></span>
-    </div>
+
     <div class="queryResponseTable">
         <table class="table table-striped table-hover table-bordered border-warning">
             <thead>
@@ -57,13 +39,26 @@
                 {% for v in value['table_rows'] %}
                 <tr>
                     {% for val in v %}
-                    <td class="table-warning" scope="row">{{val}}</td>
+                    <td class="table-warning" scope="row"><a value="{{val}}">{{val}}</a></td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    <div class="goback">
+        <button id="gobackbtn" onclick="(()=>{window.history.go(-1)})()" class="btn btn-dark" type="button">Go
+            back</button>
+    </div>
+    <script>
+        function hideGoBack() {
+            var goBackBtn = document.getElementById('gobackbtn');
+            // console.log(goBackBtn.style.display = "none");
+            if (window.location.pathname === '/patient_search') {
+                goBackBtn.style.display = "none"
+            }
+        }
+    </script>
 </body>
 
 </html>

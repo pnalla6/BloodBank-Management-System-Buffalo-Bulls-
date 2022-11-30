@@ -10,7 +10,7 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>Document</title>
 </head>
-    
+
 <body>
     <nav class="navbar bg-light">
         <div class="container-fluid">
@@ -31,7 +31,16 @@
             <button class="btn btn-warning" type="submit">Query</button>
         </form>
     </div> -->
-    <h3 style="text-align: center;">Hospital Table</h3>
+    <div style="display: flex;flex-direction: row;justify-content: center;" class="topMenu">
+        <h3 style="width: fit-content;text-align: center;margin-right: 0.4rem;">Hospital Table</h3>
+        <span><a href="{{ url_for('hospital_search') }}" class="hospital_search">Check nearest BloodBanks</a>
+        </span>
+        <!-- <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('insert_new_patient') }}"> insert new
+                patient</a></span>
+        <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('show_patient_ids_update') }}">
+                update
+                patient</a></span> -->
+    </div>
     <div class="queryResponseTable">
         <table class="table table-striped table-hover table-bordered border-warning">
             <thead>

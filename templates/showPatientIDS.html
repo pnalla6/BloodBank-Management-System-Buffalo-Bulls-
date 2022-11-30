@@ -24,7 +24,7 @@
             </form>
         </div>
     </nav>
-    <form action="{{ url_for('show_patient_details_form') }}" method="POST">
+    <form style="display: flex;flex-direction: column;justify-content: center;align-items: center; margin: auto;" action="{{ url_for('show_patient_details_form') }}" method="POST">
         <div class="hospital card-body">
             <label for="pid">Select a Patient</label>
             <select name="pid" id="pid" required>
