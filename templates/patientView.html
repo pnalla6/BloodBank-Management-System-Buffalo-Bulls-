@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,34 +14,16 @@
 <body>
     <nav class="navbar bg-light">
         <div class="container-fluid">
-            <a href="/" class="navbar-brand">BloodBank Management System</a>
-            <!-- <a href="{{ url_for('hospital_search') }}" class="hospital_search">Goto Hospital</a> -->
-            <!-- <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a> -->
-            <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
+            <a href="/" class="navbar-brand">Blood Bank</a>
+                        <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
                 <input name="user_query" id="user_query" class="form-control me-2" type="search"
                     placeholder="Enter Query" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Execute</button>
             </form>
         </div>
     </nav>
-    <!-- <div class="userQueryForm">
-        <h3>Enter Query:</h3>
-        <form action="{{ url_for('handle_query') }}" method="POST">
-            <textarea name="user_query" id="user_query" cols="60" rows="3"></textarea><br>
-            <button class="btn btn-warning" type="submit">Query</button>
-        </form>
-    </div> -->
     <div style="display: flex;flex-direction: row;justify-content: center;" class="topMenu">
         <h3 style="width: fit-content;text-align: center;margin-right: 0.4rem;">Patient Table</h3>
-        <!-- <span><a style="vertical-align: sub;" href="{{ url_for('patient_search') }}" class="patient_search">see
-                Patient hospitals</a></span>
-        <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('insert_new_patient') }}"> insert new
-                patient</a></span>
-        <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('show_patient_ids_update') }}">
-                update
-                patient</a></span>
-        <span><a style="vertical-align: sub;margin-left: 0.5rem;" href="{{ url_for('join_new_patient') }}"> join
-                patient</a></span> -->
     </div> 
 
 
@@ -86,28 +68,93 @@
         </div>
     </div>
 
-
-    <!-- <div class="queryResponseTable">
-        <table class="table table-striped table-hover table-bordered border-warning">
-            <thead>
-                <tr>
-                    {% for v in value['table_cols'] %}
-                    <th scope="col">{{v[0]}}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for v in value['table_rows'] %}
-                <tr>
-                    {% for val in v %}
-                    <td class="table-warning" scope="row">{{val}}</td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div> -->
 </body>
 
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>BloodBank View</title>
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>BLOOD BANK Management System</h2>
+        <ul>
+            <li><a href="{{ url_for('base') }}"><i class="fas fa-home"></i>DashBoard</a></li>
+            <li><a href="{{ url_for('donor')}}"><i class="fas fa-user"></i> Donor </a></li>
+            <li><a href="{{ url_for('bloodbank')}}"><i class="fas fa-user"></i> Blood Bank </a></li>
+            <li><a href="{{ url_for('hospital') }}"><i class="fas fa-user"></i> Hospital </a></li>
+            <li><a href="{{ url_for('patient')}}"><i class="fas fa-heartbeat"></i> Patient </a></li>
+            <li><a href="{{ url_for('donate')}}"><i class="fas fa-heartbeat"></i>Donate</a></li>
+        </ul>
+        <div class="social_media">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header"><form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
+            <input name="user_query" id="user_query" class="form-control me-2" type="search"
+                placeholder="Enter Query" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Execute</button>
+        </form></div>
+        <div class="info">
+            <div style="display: flex;flex-direction: row;justify-content: center;" class="topMenu">
+                <h3 style="width: fit-content;text-align: center;margin-right: 0.4rem;">Patient Table</h3>
+            </div> 
+        
+        
+            <div class="menuGrid">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('patient_search') }}">View
+                                        Patient admitted hospitals</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('insert_new_patient') }}">Insert new
+                                        patient</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('show_patient_ids_update') }}"> Update
+                                        patient</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ url_for('join_new_patient') }}">Admit
+                                        patient</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</body>
 </html>
