@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Side Navigation Bar</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>BLOOD BANK</h2>
+        <ul>
+            <li><a href="{{ url_for('base') }}"><i class="fas fa-home"></i>DashBoard</a></li>
+            <li><a href="#"><i class="fas fa-user"></i> Donor </a></li>
+            <li><a href="{{ url_for('hospital_search') }}"><i class="fas fa-user"></i> Hospital </a></li>
+            <li><a href="{{ url_for('patient_search')}}"><i class="fas fa-heartbeat"></i> Patient </a></li>
+            <li><a href="{{ url_for('donate')}}"><i class="fas fa-heartbeat"></i>Donate</a></li>
+        </ul>
+        <div class="social_media">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="main_content">
+        <div class="header">Welcome!! Have a nice day.</div>
+        <div class="info">
+            <table>
+                <tr>
+                  <th>Blood Group</th>
+                  <th>Units</th>
+                </tr>
+                <tr>
+                  <th> A+ </th>
+                  <th> {{ value[0][0] }}</th>
+                </tr>
+                <tr>
+                  <th> A- </th>
+                  <th> {{ value[0][1] }}</th>
+                </tr>
+                    <tr>
+                  <th> B+ </th>
+                  <th> {{ value[0][2] }}</th>
+                </tr>
+                <tr>
+                  <th> B- </th>
+                  <th> {{ value[0][3] }}</th>
+                </tr>
+                    <tr>
+                  <th> AB+ </th>
+                  <th> {{ value[0][4] }}</th>
+                </tr>
+                <tr>
+                  <th> AB- </th>
+                  <th> {{ value[0][5] }}</th>
+                </tr>
+                    <tr>
+                  <th> O+</th>
+                  <th> {{ value[0][6] }}</th>
+                </tr>
+                <tr>
+                  <th> O- </th>
+                  <th> {{ value[0][7] }}</th>
+                </tr>
+                
+                </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
