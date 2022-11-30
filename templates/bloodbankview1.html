@@ -8,74 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <title>Donor View</title>
-</head>
-
-<body>
-    <nav class="navbar bg-light">
-        <div class="container-fluid">
-            <a href="/" class="navbar-brand">Blood Bank</a>
-            <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
-                <input name="user_query" id="user_query" class="form-control me-2" type="search"
-                    placeholder="Enter Query" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Execute</button>
-            </form>
-        </div>
-    </nav>
-    <div style="display: flex;flex-direction: row;justify-content: center;" class="topMenu">
-        <h3 style="width: fit-content;text-align: center;margin-right: 0.4rem;">Donor Table</h3>
-    </div>
-    <div class="menuGrid">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="{{ url_for('new_blood_bank') }}">Insert new donor</a>
-                        </h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="{{ url_for('show_donate_blood_form') }}">Donate
-                            Blood</a></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#"> Update
-                                Donor</a></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">View Donor</a></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html> -->
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <title>BloodBank View</title>
 </head>
 
@@ -263,15 +195,17 @@
         </form></div>
         <div class="info">
             <div style="display: flex;flex-direction: row;justify-content: center;" class="topMenu">
-                <h3 style="width: fit-content;text-align: center;margin-right: 0.4rem;">Donor Table</h3>
-            </div>
+                <h3 style="width: fit-content;text-align: center;margin-right: 0.4rem;">Patient Table</h3>
+            </div> 
+        
         
             <div class="menuGrid">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="{{ url_for('new_blood_bank') }}">Insert new donor</a>
+                                <h5 class="card-title"><a href="{{ url_for('patient_search') }}">View
+                                        Patient admitted hospitals</a>
                                 </h5>
                             </div>
                         </div>
@@ -279,8 +213,8 @@
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="{{ url_for('show_donate_blood_form') }}">Donate
-                                    Blood</a></h5>
+                                <h5 class="card-title"><a href="{{ url_for('insert_new_patient') }}">Insert new
+                                        patient</a></h5>
                             </div>
                         </div>
                     </div>
@@ -289,24 +223,21 @@
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="#"> Update
-                                        Donor</a></h5>
+                                <h5 class="card-title"><a href="{{ url_for('show_patient_ids_update') }}"> Update
+                                        patient</a></h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="#">View Donor</a></h5>
+                                <h5 class="card-title"><a href="{{ url_for('join_new_patient') }}">Admit
+                                        patient</a></h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-        </div>
-    </div>
-</div>
 
 </body>
 </html>
