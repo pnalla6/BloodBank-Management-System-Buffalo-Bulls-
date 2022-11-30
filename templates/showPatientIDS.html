@@ -15,8 +15,8 @@
     <nav class="navbar bg-light">
         <div class="container-fluid">
             <a href="/" class="navbar-brand">BloodBank</a>
-            <a href="{{ url_for('hospital_search') }}" class="hospital_search">Goto Hospital</a>
-            <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a>
+            <!-- <a href="{{ url_for('hospital_search') }}" class="hospital_search">Goto Hospital</a> -->
+            <!-- <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a> -->
             <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
                 <input name="user_query" id="user_query" class="form-control me-2" type="search"
                     placeholder="Enter Query" aria-label="Search">
@@ -24,7 +24,7 @@
             </form>
         </div>
     </nav>
-    <form action="{{ url_for('show_patient_details_form') }}" method="POST">
+    <form style="display: flex;flex-direction: column;justify-content: center;align-items: center; margin: auto;" action="{{ url_for('show_patient_details_form') }}" method="POST">
         <div class="hospital card-body">
             <label for="pid">Select a Patient</label>
             <select name="pid" id="pid" required>

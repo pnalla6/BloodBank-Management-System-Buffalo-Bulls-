@@ -24,11 +24,12 @@
             </form>
         </div>
     </nav>
-    <form style="display: flex;flex-direction: column;justify-content: center;align-items: center; margin: auto;" action="{{ url_for('show_bloodbank_details_form') }}" method="POST">
+    <form style="display: flex;flex-direction: column;justify-content: center;align-items: center; margin: auto;"
+        action="{{ url_for('get_patient_hospital_form') }}" method="POST">
         <div class="hospital card-body">
-            <label for="bbid">Select a BloodBank</label>
-            <select name="bbid" id="bbid" required>
-                <option value="none" selected disabled hidden>Select a BloodBank</option>
+            <label for="pid">Select a Patient</label>
+            <select name="pid" id="pid" required>
+                <option value="none" selected disabled hidden>Select a Patient</option>
                 {% for v in value['table_rows'] %}
                 <option value="{{v[0]}}">{{v[0]}} | {{v[1]}}</option>
                 {% endfor %}
@@ -38,12 +39,21 @@
             <label name="bb_distance" for="bb_distance">Enter a distance:</label>
             <input name="bb_distance" type="number" required>
         </div> -->
-        <div class="submit">
-            <input value="Update" type="submit">
+        <div class="hospital card-body">
+            <label for="hid">Select a Hospital</label>
+            <select name="hid" id="pid" required>
+                <option value="none" selected disabled hidden>Select a Hospital</option>
+                {% for v in value['htable_rows'] %}
+                <option value="{{v[0]}}">{{v[0]}} | {{v[1]}}</option>
+                {% endfor %}
+            </select>
+        </div><br>
+        <div style="margin-bottom: 1rem;" class="submit">
+            <input value="Join patient" type="submit">
         </div>
     </form>
 
-    <div class="queryResponseTable">
+    <!-- <div class="queryResponseTable">
         <table class="table table-striped table-hover table-bordered border-warning">
             <thead>
                 <tr>
@@ -63,7 +73,7 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
+    </div> -->
     <div class="goback">
         <button id="gobackbtn" onclick="(()=>{window.history.go(-1)})()" class="btn btn-dark" type="button">Go
             back</button>

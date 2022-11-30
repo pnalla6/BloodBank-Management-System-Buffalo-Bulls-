@@ -119,7 +119,7 @@ def handle_query():
     query_response = cur.fetchall()
     queryResponseObj["table_cols"] = columsNames
     queryResponseObj["table_rows"] = query_response
-    return render_template("index.html", value=queryResponseObj)
+    return render_template("recordView.html", value=queryResponseObj)
 
 
 # return new patient form
@@ -201,14 +201,24 @@ def get_new_patient_form():
     )
     cur.execute(insert_into_address_query)
 
-    # get aid from address
-    print(cur.fetchone())
-    # queryResponse = cur.fetchall()
-    # columsNames = cur.description
-    # patientHospitalObj["table_cols"] = columsNames
-    # patientHospitalObj["table_rows"] = queryResponse
-    # return render_template("patientSearch.html")
-    return cur.fetchone()
+   # get aid from addr
+    get_aid = "select aid from address where building_no='{}' and street_name='{}' and zipcode='{}'".format(form_buildingNo,form_streetName,form_zipcode)
+    cur.execute(get_aid)
+    new_aid = cur.fetchall()[0][0]
+    print(new_aid)
+
+    insert_new_patient = "INSERT into patient (first_name,last_name,age,blood_group,phone,aid) VALUES('{}','{}',{},'{}','{}',{})".format(form_fn,form_ln,form_age,form_bloodGroup,form_phone,new_aid)
+    cur.execute(insert_new_patient)
+    # cur.fetchall()
+
+    newData = {}
+    get_new_donor = "select * from patient where phone='{}' and aid={}".format(form_phone,new_aid)
+    cur.execute(get_new_donor)
+    columsNames = cur.description
+    newData["table_cols"] = columsNames
+    newData["table_rows"] = cur.fetchall()
+    # print(newData)
+    return render_template('recordView.html',value=newData)
 
 
 # insert a new patient into database
@@ -251,7 +261,7 @@ def show_patient_ids_update():
     patientIDsOBJ = {}
     # print('RA---',request.args.to_dict())
     # print("bbid--", bbid)
-    query = "select pid,first_name from patient LIMIT 100"
+    query = "select pid,first_name from patient ORDER BY pid LIMIT 100"
     cur.execute(query)
     columsNames = cur.description
     patientIDsOBJ["table_cols"] = columsNames
@@ -343,8 +353,8 @@ def delete_blood_bank():
     oneg = bloodBankData["oneg"]
     abpos = bloodBankData["abpos"]
     abneg = bloodBankData["abneg"]
-    phone= bloodBankData["phone"]
-    mail= bloodBankData["mail"]
+    phone = bloodBankData["phone"]
+    mail = bloodBankData["mail"]
     print(bloodBankData)
     delete_from_bloodbank_query = "delete from blood_bank where bbid={}".format(bbid)
     cur.execute(delete_from_bloodbank_query)
@@ -354,6 +364,155 @@ def delete_blood_bank():
     # bloodbankOBJ["table_cols"] = columsNames
     # bloodbankOBJ["table_rows"] = cur.fetchall()
     return "<h2>bbid={} delete sucess.</h2>".format(bbid)
+
+
+# join new patient form
+@app.route("/join_new_patient")
+def join_new_patient():
+    patientIDsOBJ = {}
+    # print('RA---',request.args.to_dict())
+    # print("bbid--", bbid)
+    query = "select pid,first_name from patient ORDER BY pid LIMIT 100"
+    cur.execute(query)
+    columsNames = cur.description
+    patientIDsOBJ["table_cols"] = columsNames
+    patientIDsOBJ["table_rows"] = cur.fetchall()
+    hospital_query = "select hid,name from hospital ORDER BY hid LIMIT 100"
+    cur.execute(hospital_query)
+    patientIDsOBJ["htable_rows"] = cur.fetchall()
+    return render_template("joinNewPatient.html", value=patientIDsOBJ)
+
+
+# get patient-hospital form
+@app.route("/get_patient_hospital_form", methods=["POST"])
+def get_patient_hospital_form():
+    pid = request.form.to_dict()["pid"]
+    hid = request.form.to_dict()["hid"]
+    get_bb_from_hid = "select bbid from hospital_blood_bank where hid={}".format(hid)
+    cur.execute(get_bb_from_hid)
+    bbid = cur.fetchall()[0][0]
+
+    insert_into_pbb = "INSERT into patient_hospital_blood_bank (pid, hid, bbid) VALUES({},{},{})".format(pid,hid,bbid)
+    cur.execute(insert_into_pbb)
+    newData = {}
+    get_new_record = (
+        "select pid,hid from patient_hospital_blood_bank where pid={} and bbid={}".format(
+            pid, bbid
+        )
+    )
+    cur.execute(get_new_record)
+    columsNames = cur.description
+    newData["table_cols"] = columsNames
+    newData["table_rows"] = cur.fetchall()
+    # print(newData)
+    return render_template("recordView.html", value=newData)
+
+
+# show new donor form
+@app.route("/show_new_donor_form")
+def show_new_donor_form():
+    return render_template('newDonorForm.html')
+
+
+
+# get new donor form data
+@app.route("/get_new_donor_form_data", methods=["POST"])
+def get_new_donor_form_data():
+    new_donor_data = request.form.to_dict()
+    fn = new_donor_data['first_name']
+    ln = new_donor_data['last_name']
+    phone = new_donor_data['phone']
+    blood_type = new_donor_data['blood_type']
+    age = new_donor_data['age']
+    units = new_donor_data['units']
+    last_given = new_donor_data['last_given']
+
+    b_no = new_donor_data['building_no']
+    street_name = new_donor_data['street_name']
+    city = new_donor_data['city']
+    state = new_donor_data['state_id']
+    zipcode = new_donor_data['zipcode']
+
+ # get state_id from state table
+    get_stateid_query = "select state_id from state where state_id='{}'".format(
+        state
+    )
+    cur.execute(get_stateid_query)
+    form_state_id = cur.fetchall()[0][0]
+
+    insert_into_address_query = "INSERT INTO address (building_no, street_name, city, zipcode, state_id) VALUES ({},'{}','{}','{}','{}');".format(
+        b_no, street_name, city, zipcode, form_state_id
+    )
+    cur.execute(insert_into_address_query)
+
+    # get aid from addr
+    get_aid = "select aid from address where building_no='{}' and street_name='{}' and zipcode='{}'".format(b_no,street_name,zipcode)
+    cur.execute(get_aid)
+    new_aid = cur.fetchall()[0][0]
+    print(new_aid)
+
+    insert_new_donor = "INSERT into donor (first_name,last_name,phone,blood_type,age,units,last_given,aid) VALUES('{}','{}',{},'{}',{},{},'{}',{})".format(fn,ln,phone,blood_type,age,units,last_given,new_aid)
+    cur.execute(insert_new_donor)
+    # cur.fetchall()
+
+    newData = {}
+    get_new_donor = "select * from donor where phone='{}' and aid={}".format(phone,new_aid)
+    cur.execute(get_new_donor)
+    columsNames = cur.description
+    newData["table_cols"] = columsNames
+    newData["table_rows"] = cur.fetchall()
+    # print(newData)
+    return render_template('recordView.html',value=newData)
+
+
+# show_donate_blood_form
+@app.route("/show_donate_blood_form")
+def show_donate_blood_form():
+    patientIDsOBJ = {}
+    # print('RA---',request.args.to_dict())
+    # print("bbid--", bbid)
+    query = "select did,first_name from donor ORDER BY did LIMIT 100"
+    cur.execute(query)
+    columsNames = cur.description
+    patientIDsOBJ["table_cols"] = columsNames
+    patientIDsOBJ["table_rows"] = cur.fetchall()
+    hospital_query = "select bbid,name from blood_bank ORDER BY bbid LIMIT 100"
+    cur.execute(hospital_query)
+    patientIDsOBJ["htable_rows"] = cur.fetchall()
+    return render_template("newDonorForm.html",value=patientIDsOBJ)
+
+# donate blood
+@app.route("/donate_blood", methods=["POST"])
+def donate_blood():
+    form_data = request.form.to_dict()
+    did = form_data['did']
+    bbid = form_data['bbid']
+    u1 = form_data['units']
+
+    get_blood_type = "select did,units from donor where did={} LIMIT 1".format(did)
+    cur.execute(get_blood_type)
+    # print(cur.fetchall())
+    d = cur.fetchall()
+    did = d[0][0]
+    u2 = d[0][1]
+    new_units = int(u1)+int(u2)
+    
+    increase_units = "UPDATE donor SET units={} where did={}".format(new_units,did)
+    cur.execute(increase_units)
+    newData = {}
+    get_new_donor = "select * from donor where did={}".format(did)
+    cur.execute(get_new_donor)
+    columsNames = cur.description
+    newData["table_cols"] = columsNames
+    newData["table_rows"] = cur.fetchall()
+    # print(newData)
+    return render_template('recordView.html',value=newData)
+
+
+
+
+
+
 
 
 ### functions ###

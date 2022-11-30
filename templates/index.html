@@ -14,9 +14,8 @@
 <body>
     <nav class="navbar bg-light">
         <div class="container-fluid">
-            <a href="/" class="navbar-brand">BloodBank</a>
-            <a href="{{ url_for('hospital_search') }}" class="hospital_search">Goto Hospital</a>
-            <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a>
+            <a href="/" class="navbar-brand">BloodBank Management System</a>
+            <!-- <a href="{{ url_for('patient_search') }}" class="patient_search">Goto Patient</a> -->
             <form class="d-flex" role="search" action="{{ url_for('handle_query') }}" method="POST">
                 <input name="user_query" id="user_query" class="form-control me-2" type="search"
                     placeholder="Enter Query" aria-label="Search">
@@ -65,7 +64,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="card">
+                <div class="card" id="main_card">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{{ url_for('patient') }}">Patient</a></h5>
                     </div>
